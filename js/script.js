@@ -1,5 +1,5 @@
 // CREATE AN ARRAY OF EMPLOYEES
-let arrEmployees = [
+let arrEmployeesDefault = [
     [43568712, 'Daniel Romo',4455, 'daniel.romo@mycompany.com', 'Marketing'],
     [43568711, 'Peter Seikel',4454, 'peter.seikel@mycompany.com', 'Engineering'],
     [43568710, 'John Aria',4453, 'john.aria@mycompany.com', 'Quality Assurance'],
@@ -7,9 +7,15 @@ let arrEmployees = [
     [43568712, 'Sal Quantico',4451, 'sal.quantico@mycompany.com', 'Executive'],
 ];
 
+let arrNewEmployees = [];
+
 // CHECK TO SEE IF STORAGE OBJECT EXISTS WHEN THE PAGE LOADS
 // IF DOES, RETURN STORAGE OBJECT INTO ARRAY INSTEAD OF POPULATED ARRAY
-
+if (localStorage.getItem('arrNewEmployees') !== null) {
+    arrNewEmployees = localStorage.getItem('arrNewEmployees');
+} else {
+    arrNewEmployees = [...arrEmployeesDefault];
+}
 
 // GET DOM ELEMENTS
 let empForm     = document.querySelector('#addForm');
@@ -20,7 +26,9 @@ let empCount    = document.querySelector('#empCount');
 let count = 0;
 
 // BUILD THE EMPLOYEES TABLE WHEN THE PAGE LOADS
+window.addEventListener('load', () => {
 
+});
 
 // ADD EMPLOYEE
 form.addEventListener('submit', (e) => {
@@ -35,15 +43,21 @@ form.addEventListener('submit', (e) => {
     let empDept     = document.querySelector('#department').value;
 
     // ADD THE NEW EMPLOYEE TO A NEW ARRAY OBJECT
+    let arrNewEmployees2 = [empID, empName, empExt, empEmail, empDept];
 
     // PUSH THE NEW ARRAY TO THE *EXISTING* EMPLOYEES ARRAY
+    arrNewEmployees = arrNewEmployees.push(arrNewEmployees2);
 
     // BUILD THE GRID
+    buildGrid(arrNewEmployees);
 
     // RESET THE FORM
-
+    document.querySelector('#addForm').reset();
     // SET FOCUS BACK TO THE ID TEXT BOX
-
+    document.querySelector('#id').focus();
+    // INCREMENENT THE NUMBER OF EMPLOYEES IN THE TABLE
+    count++;
+    empCount.value = `(${count})`;
 });
 
 // DELETE EMPLOYEE
@@ -56,9 +70,10 @@ empTable.addEventListener('click', (e) => {
             empTable.deleteRow(e.target.parentElement.parentElement.rowIndex);
 
             // REMOVE EMPLOYEE FROM ARRAY
+            arrNewEmployees = arrNewEmployees.pop();
 
             // BUILD THE GRID
-            buildGrid();
+            buildGrid(arrNewEmployees);
 
             // DECREMENT THE COUNTER
             count--;
