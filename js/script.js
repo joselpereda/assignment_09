@@ -94,13 +94,34 @@ function buildGrid(arrNewEmployees) {
     // REBUILD THE TBODY FROM SCRATCH
     // LOOP THROUGH THE ARRAY OF EMPLOYEES
     // REBUILDING THE ROW STRUCTURE
+    var tableRef = document.getElementById('employees').getElementsByTagName('tbody')[0];
+
+    // CREATE THE DELETE BUTTON
+    let deleteBtn   = document.createElement('button');
+    // ADD APPROPRIATE BOOTSTRAP CLASSES
+    deleteBtn.className = 'btn btn-sm btn-danger delete';
+    // ADD THE 'X' TEXT TO BUTTON
+    deleteBtn.appendChild(document.createTextNode('X'));
+
     for (let i of arrNewEmployees) {
-        
+
+        let empID       = arrNewEmployees[i,0];
+        let empName     = arrNewEmployees[i,1];
+        let empExt      = arrNewEmployees[i,2];
+        let empEmail    = arrNewEmployees[i,3];
+        let empDept     = arrNewEmployees[i,4];
+
+        let row = 
+        "<td>" + empID + "</td>"+
+        "<td>" + eempName +  "</td>"+
+        "<td>" + empExt + "</td>" +
+        "<td>" + empEmail + "</td>" +
+        "<td>" + empDept + "</td>" +
+        "<td>" + deleteBtn + "</td>" 
+    
+        // BIND THE TBODY TO THE EMPLOYEE TABLE
+        tableRef.appendChild(row);
     }
-
-
-    // BIND THE TBODY TO THE EMPLOYEE TABLE
-
     // STORE THE ARRAY IN STORAGE
     const json = JSON.stringify(arrNewEmployees);
     localStorage.arrNewEmployees = json;
