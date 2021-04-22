@@ -12,7 +12,8 @@ let arrNewEmployees = [];
 // CHECK TO SEE IF STORAGE OBJECT EXISTS WHEN THE PAGE LOADS
 // IF DOES, RETURN STORAGE OBJECT INTO ARRAY INSTEAD OF POPULATED ARRAY
 if (localStorage.getItem('arrNewEmployees') !== null) {
-    arrNewEmployees = localStorage.getItem('arrNewEmployees');
+    const json = localStorage.arrNewEmployees;
+    const arrNewEmployees = JSON.parse(jason);
 } else {
     arrNewEmployees = [...arrEmployeesDefault];
 }
@@ -83,19 +84,25 @@ empTable.addEventListener('click', (e) => {
 });
 
 // BUILD THE EMPLOYEES GRID
-function buildGrid() {
+function buildGrid(arrNewEmployees) {
     // REMOVE THE EXISTING SET OF ROWS BY REMOVING THE ENTIRE TBODY SECTION
+    var Parent = document.getElementById(tbody);
+    while(Parent.hasChildNodes()) {
+        Parent.removeChild(Parent.firstChild);
+    }
 
     // REBUILD THE TBODY FROM SCRATCH
-
     // LOOP THROUGH THE ARRAY OF EMPLOYEES
     // REBUILDING THE ROW STRUCTURE
+    for (let i of arrNewEmployees) {
+        
+    }
 
 
     // BIND THE TBODY TO THE EMPLOYEE TABLE
 
-    // UPDATE EMPLOYEE COUNT
-
     // STORE THE ARRAY IN STORAGE
+    const json = JSON.stringify(arrNewEmployees);
+    localStorage.arrNewEmployees = json;
 
 };
